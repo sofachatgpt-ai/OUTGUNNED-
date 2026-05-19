@@ -19,9 +19,9 @@
     </div>
 
     <!-- Labels below specific checkboxes -->
-    <div class="flex justify-between px-1 text-xs font-bold text-amber-900">
-      <div class="ml-67">BAD!</div>
-      <div class="ml-31">HOT!</div>
+    <div class="grid grid-cols-12 gap-1 text-xs font-bold text-amber-900">
+      <div class="col-start-8 col-span-1 text-center">BAD!</div>
+      <div class="col-start-12 col-span-1 text-center">HOT!</div>
     </div>
 
     <!-- Descriptions -->

@@ -1,6 +1,6 @@
 <template>
-  <div class="flex items-center gap-2">
-    <span class="text-xs font-bold text-amber-900 whitespace-nowrap">{{ name }}</span>
+  <div class="flex items-center gap-1">
+    <span class="text-sm font-bold text-amber-900 whitespace-nowrap ml-auto">{{ name }}</span>
     <div class="flex gap-1">
       <AttributeCheckbox
         v-for="(checked, index) in itemChecked"
