@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen" :style="{ backgroundImage: 'url(/assets/Fondo%20OutgunnedAdventure.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }">
-    <div class="flex min-h-screen">
+  <div class="h-screen overflow-hidden" :style="{ backgroundImage: 'url(/assets/Fondo%20OutgunnedAdventure.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }">
+    <div class="flex h-screen">
       <CharacterLeftPanel />
       <CharacterRightPanel />
     </div>

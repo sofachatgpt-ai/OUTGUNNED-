@@ -1,6 +1,6 @@
 <script setup>
 useHead({
-  title: '家宅奇譚',
+  title: '逆境破局系列',
   link: [
     { rel: 'icon', type: 'image/png', href: '/outgunned/assets/official/logo.png' }
   ]
