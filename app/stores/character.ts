@@ -175,6 +175,9 @@ export const useCharacterStore = defineStore('character', {
     // Experiences
     experiences: '',
     
+    // Spotlight Checkboxes (3 circles)
+    spotlight: [false, false, false],
+    
     // Contracts
     contracts: '',
     
@@ -340,6 +343,7 @@ export const useCharacterStore = defineStore('character', {
         characterInfo: this.characterInfo,
         memories: this.memories,
         experiences: this.experiences,
+        spotlight: this.spotlight,
         contracts: this.contracts,
         tttNotes: this.tttNotes
       }
@@ -385,6 +389,7 @@ export const useCharacterStore = defineStore('character', {
             characterInfo: jsonData.characterInfo || {},
             memories: jsonData.memories || [],
             experiences: jsonData.experiences || '',
+            spotlight: jsonData.spotlight || [false, false, false],
             contracts: jsonData.contracts || '',
             tttNotes: jsonData.tttNotes || ''
           }
@@ -509,6 +514,7 @@ export const useCharacterStore = defineStore('character', {
           'characterInfo',
           'memories',
           'experiences',
+          'spotlight',
           'contracts',
           'tttNotes'
         ]
