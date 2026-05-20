@@ -2,7 +2,7 @@
   <div class="space-y-2">
     <!-- GRIT Header -->
     <div class="bg-amber-900 text-white px-3 py-1 rounded font-bold tracking-wider text-sm w-fit">
-      GRIT
+      毅力
     </div>
 
     <!-- GRIT Checkboxes Grid -->
@@ -20,14 +20,14 @@
 
     <!-- Labels below specific checkboxes -->
     <div class="grid grid-cols-12 gap-1 text-xs font-bold text-amber-900">
-      <div class="col-start-8 col-span-1 text-center">BAD!</div>
-      <div class="col-start-12 col-span-1 text-center">HOT!</div>
+      <div class="col-start-8 col-span-1 text-center">危機!</div>
+      <div class="col-start-12 col-span-1 text-center">逆轉!</div>
     </div>
 
     <!-- Descriptions -->
     <div class="text-xs text-amber-900 space-y-0">
-      <div>BAD: SUFFER A CONDITION</div>
-      <div>HOT: GAIN 2 LUCK</div>
+      <div>危機: 承受一個狀態</div>
+      <div>逆轉: 獲得 2 點幸運</div>
     </div>
   </div>
 </template>

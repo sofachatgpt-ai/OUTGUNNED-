@@ -23,7 +23,7 @@
     <div class="col-span-2 space-y-2">
       <!-- NAME -->
       <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
-        <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">NAME</label>
+        <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">名字</label>
         <input
           v-model="details.name"
           type="text"
@@ -33,7 +33,7 @@
 
       <!-- ROLE -->
       <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
-        <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">ROLE</label>
+        <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">角色定位</label>
         <input
           v-model="details.role"
           type="text"
@@ -43,7 +43,7 @@
 
       <!-- TROPE -->
       <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
-        <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">TROPE</label>
+        <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">原型套路</label>
         <input
           v-model="details.trope"
           type="text"
@@ -54,7 +54,7 @@
       <!-- BACKGROUND + AGE -->
       <div class="grid grid-cols-3 gap-2">
         <div class="col-span-2 flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
-          <label class="font-bold text-amber-900 text-xs whitespace-nowrap">BACKGROUND</label>
+          <label class="font-bold text-amber-900 text-xs whitespace-nowrap">背景</label>
           <input
             v-model="details.background"
             type="text"
@@ -62,7 +62,7 @@
           />
         </div>
         <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
-          <label class="font-bold text-amber-900 text-xs whitespace-nowrap">AGE</label>
+          <label class="font-bold text-amber-900 text-xs whitespace-nowrap">年齡</label>
           <input
             v-model="details.age"
             type="text"
@@ -70,22 +70,21 @@
           />
         </div>
       </div>
-
-      <!-- FLAW -->
+      <!-- CATCHPHRASE -->
       <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
-        <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">FLAW</label>
+        <label class="font-bold text-amber-900 text-xs whitespace-nowrap">口頭禪</label>
         <input
-          v-model="details.flaw"
+          v-model="details.catchphrase"
           type="text"
           class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
         />
       </div>
 
-      <!-- CATCHPHRASE -->
+      <!-- FLAW -->
       <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
-        <label class="font-bold text-amber-900 text-xs whitespace-nowrap">CATCHPHRASE</label>
+        <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">缺陷</label>
         <input
-          v-model="details.catchphrase"
+          v-model="details.flaw"
           type="text"
           class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
         />
