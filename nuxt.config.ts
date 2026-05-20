@@ -7,7 +7,8 @@ export default defineNuxtConfig({
   srcDir: 'app/',
 
   pinia: {
-    storesDirs: ['./stores/**']
+    storesDirs: ['./stores/**'],
+    plugins: ['~/plugins/pinia-persist.ts']
   },
 
   // GitHub Pages 部署配置

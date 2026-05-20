@@ -2,6 +2,18 @@ import { defineStore } from 'pinia'
 
 export const useCharacterStore = defineStore('character', {
   state: () => ({
+    // Character Details
+    imageUrl: '',
+    characterDetails: {
+      name: '',
+      role: '',
+      trope: '',
+      background: '',
+      age: '',
+      flaw: '',
+      catchphrase: ''
+    },
+    
     // Aces
     aces: [
       { name: 'Hearts', icon: 'ace-hearts', active: false },
@@ -97,6 +109,55 @@ export const useCharacterStore = defineStore('character', {
     attributes: {
       grit: 1,
       luck: 1
+    },
+    
+    // Feats
+    feats: ['', '', '', '', '', ''],
+    
+    // Grit Checkboxes
+    gritChecked: [false, false, false, false, false, false, false, false, false, false, false, false],
+    
+    // Attribute Group Level States (the title checkboxes)
+    attributeGroupStates: {
+      brawn: [true, true, false],
+      nerves: [true, true, false],
+      smooth: [true, true, false],
+      focus: [true, true, false],
+      crime: [true, true, false]
+    },
+    
+    // Attribute Item States (individual skill checkboxes)
+    attributeItemStates: {
+      brawn: {
+        '忍耐': [true, false, false],
+        '戰鬥': [true, false, false],
+        '蠻力': [true, false, false],
+        '特技': [true, false, false]
+      },
+      nerves: {
+        '冷靜': [true, false, false],
+        '駕駛': [true, false, false],
+        '射擊': [true, false, false],
+        '求生': [true, false, false]
+      },
+      smooth: {
+        '調情': [true, false, false],
+        '領導': [true, false, false],
+        '話術': [true, false, false],
+        '風範': [true, false, false]
+      },
+      focus: {
+        '偵查': [true, false, false],
+        '治療': [true, false, false],
+        '修理': [true, false, false],
+        '知識': [true, false, false]
+      },
+      crime: {
+        '警覺': [true, false, false],
+        '巧手': [true, false, false],
+        '潛行': [true, false, false],
+        '街頭智慧': [true, false, false]
+      }
     },
     
     // Character Info
@@ -246,7 +307,16 @@ export const useCharacterStore = defineStore('character', {
     },
     
     exportData() {
+      const characterName = this.characterDetails.name || 'Character'
+      
       const data = {
+        metadata: {
+          version: '1.0',
+          exportDate: new Date().toISOString(),
+          characterName: characterName
+        },
+        characterDetails: this.characterDetails,
+        imageUrl: this.imageUrl,
         aces: this.aces,
         moves: this.moves,
         categoryLevels: this.categoryLevels,
@@ -262,6 +332,11 @@ export const useCharacterStore = defineStore('character', {
         wealthLevel: this.wealthLevel,
         coins: this.coins,
         traits: this.traits,
+        attributes: this.attributes,
+        feats: this.feats,
+        gritChecked: this.gritChecked,
+        attributeGroupStates: this.attributeGroupStates,
+        attributeItemStates: this.attributeItemStates,
         characterInfo: this.characterInfo,
         memories: this.memories,
         experiences: this.experiences,
@@ -274,18 +349,60 @@ export const useCharacterStore = defineStore('character', {
       const url = URL.createObjectURL(dataBlob)
       const link = document.createElement('a')
       link.href = url
-      link.download = `character-${Date.now()}.json`
+      link.download = `${characterName}-${Date.now()}.json`
       link.click()
       URL.revokeObjectURL(url)
     },
     
     importData(jsonData: any) {
       try {
-        Object.keys(jsonData).forEach(key => {
-          if (key in this) {
-            this[key] = jsonData[key]
+        // 如果有 metadata，说明是新格式
+        if (jsonData.metadata) {
+          // 从新格式导入
+          const dataToImport = {
+            imageUrl: jsonData.imageUrl || '',
+            characterDetails: jsonData.characterDetails || {},
+            aces: jsonData.aces || [],
+            moves: jsonData.moves || [],
+            categoryLevels: jsonData.categoryLevels || {},
+            societySkills: jsonData.societySkills || [],
+            academiaSkills: jsonData.academiaSkills || [],
+            warSkills: jsonData.warSkills || [],
+            streetSkills: jsonData.streetSkills || [],
+            conditions: jsonData.conditions || [],
+            currentDecorum: jsonData.currentDecorum || 3,
+            currentStress: jsonData.currentStress || 0,
+            currentTTT: jsonData.currentTTT || 1,
+            equipmentText: jsonData.equipmentText || '',
+            wealthLevel: jsonData.wealthLevel || 'middle',
+            coins: jsonData.coins || 0,
+            traits: jsonData.traits || [],
+            attributes: jsonData.attributes || {},
+            feats: jsonData.feats || [],
+            gritChecked: jsonData.gritChecked || [],
+            attributeGroupStates: jsonData.attributeGroupStates || {},
+            attributeItemStates: jsonData.attributeItemStates || {},
+            characterInfo: jsonData.characterInfo || {},
+            memories: jsonData.memories || [],
+            experiences: jsonData.experiences || '',
+            contracts: jsonData.contracts || '',
+            tttNotes: jsonData.tttNotes || ''
           }
-        })
+          
+          Object.keys(dataToImport).forEach(key => {
+            if (key in this) {
+              this[key] = dataToImport[key]
+            }
+          })
+        } else {
+          // 从旧格式导入
+          Object.keys(jsonData).forEach(key => {
+            if (key in this) {
+              this[key] = jsonData[key]
+            }
+          })
+        }
+        
         // 檢查並補齊自訂狀態
         this.ensureCustomConditions()
         return true
@@ -358,5 +475,44 @@ export const useCharacterStore = defineStore('character', {
         localStorage.removeItem('outgunned-character')
       }
     }
+  },
+  
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: 'outgunned-character',
+        storage: localStorage,
+        paths: [
+          'imageUrl',
+          'characterDetails',
+          'aces',
+          'moves',
+          'categoryLevels',
+          'societySkills',
+          'academiaSkills',
+          'warSkills',
+          'streetSkills',
+          'conditions',
+          'currentDecorum',
+          'currentStress',
+          'currentTTT',
+          'equipmentText',
+          'wealthLevel',
+          'coins',
+          'traits',
+          'attributes',
+          'feats',
+          'gritChecked',
+          'attributeGroupStates',
+          'attributeItemStates',
+          'characterInfo',
+          'memories',
+          'experiences',
+          'contracts',
+          'tttNotes'
+        ]
+      }
+    ]
   }
 })

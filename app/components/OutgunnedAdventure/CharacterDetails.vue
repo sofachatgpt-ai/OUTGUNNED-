@@ -4,15 +4,15 @@
     <div class="col-span-1 space-y-2 flex flex-col">
       <div class="bg-gray-200 border-2 border-amber-900 rounded flex items-center justify-center overflow-hidden flex-1">
         <img
-          v-if="imageUrl"
-          :src="imageUrl"
+          v-if="characterStore.imageUrl"
+          :src="characterStore.imageUrl"
           alt="Character"
           class="w-full h-full object-cover"
         />
         <div v-else class="text-gray-400 text-center text-xs">No Image</div>
       </div>
       <input
-        v-model="imageUrl"
+        v-model="characterStore.imageUrl"
         type="text"
         placeholder="Image URL"
         class="w-full px-2 py-1 text-xs border-2 border-amber-900 rounded bg-white"
@@ -25,7 +25,7 @@
       <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
         <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">名字</label>
         <input
-          v-model="details.name"
+          v-model="characterStore.characterDetails.name"
           type="text"
           class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
         />
@@ -35,7 +35,7 @@
       <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
         <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">角色定位</label>
         <input
-          v-model="details.role"
+          v-model="characterStore.characterDetails.role"
           type="text"
           class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
         />
@@ -45,7 +45,7 @@
       <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
         <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">原型套路</label>
         <input
-          v-model="details.trope"
+          v-model="characterStore.characterDetails.trope"
           type="text"
           class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
         />
@@ -56,7 +56,7 @@
         <div class="col-span-2 flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
           <label class="font-bold text-amber-900 text-xs whitespace-nowrap">背景</label>
           <input
-            v-model="details.background"
+            v-model="characterStore.characterDetails.background"
             type="text"
             class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
           />
@@ -64,7 +64,7 @@
         <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
           <label class="font-bold text-amber-900 text-xs whitespace-nowrap">年齡</label>
           <input
-            v-model="details.age"
+            v-model="characterStore.characterDetails.age"
             type="text"
             class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
           />
@@ -74,7 +74,7 @@
       <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
         <label class="font-bold text-amber-900 text-xs whitespace-nowrap">口頭禪</label>
         <input
-          v-model="details.catchphrase"
+          v-model="characterStore.characterDetails.catchphrase"
           type="text"
           class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
         />
@@ -84,7 +84,7 @@
       <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
         <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">缺陷</label>
         <input
-          v-model="details.flaw"
+          v-model="characterStore.characterDetails.flaw"
           type="text"
           class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
         />
@@ -94,18 +94,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useCharacterStore } from '~/stores/character'
 
-const imageUrl = ref('')
-const details = ref({
-  name: '',
-  role: '',
-  trope: '',
-  background: '',
-  age: '',
-  flaw: '',
-  catchphrase: ''
-})
+const characterStore = useCharacterStore()
 </script>
 
 <style scoped>

@@ -1,0 +1,287 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "exportDate": "2026-05-20T00:00:00.000Z",
+    "characterName": "Example Character"
+  },
+  "characterDetails": {
+    "name": "Example Character",
+    "role": "Adventurer",
+    "trope": "The Hero",
+    "background": "Comes from a small village",
+    "age": "25",
+    "flaw": "Too trusting",
+    "catchphrase": "Let's go!"
+  },
+  "imageUrl": "https://example.com/character.jpg",
+  "aces": [
+    {
+      "name": "Hearts",
+      "icon": "ace-hearts",
+      "active": false
+    },
+    {
+      "name": "Diamonds",
+      "icon": "ace-diamonds",
+      "active": false
+    },
+    {
+      "name": "Clubs",
+      "icon": "ace-clubs",
+      "active": false
+    },
+    {
+      "name": "Spades",
+      "icon": "ace-spades",
+      "active": false
+    },
+    {
+      "name": "Joker",
+      "icon": "ace-joker",
+      "active": false
+    }
+  ],
+  "moves": [
+    {
+      "text": "",
+      "suits": {
+        "heart": false,
+        "diamond": false,
+        "club": false,
+        "spade": false
+      },
+      "used": false
+    },
+    {
+      "text": "",
+      "suits": {
+        "heart": false,
+        "diamond": false,
+        "club": false,
+        "spade": false
+      },
+      "used": false
+    },
+    {
+      "text": "",
+      "suits": {
+        "heart": false,
+        "diamond": false,
+        "club": false,
+        "spade": false
+      },
+      "used": false
+    }
+  ],
+  "categoryLevels": {
+    "society": 1,
+    "academia": 1,
+    "war": 1,
+    "street": 1
+  },
+  "societySkills": [
+    {
+      "name": "ART",
+      "name_cn": "藝術",
+      "level": 1
+    },
+    {
+      "name": "CHARM",
+      "name_cn": "魅力",
+      "level": 1
+    },
+    {
+      "name": "ELOQUENCE",
+      "name_cn": "口才",
+      "level": 1
+    },
+    {
+      "name": "ETIQUETTE",
+      "name_cn": "禮儀",
+      "level": 1
+    },
+    {
+      "name": "GRACE",
+      "name_cn": "身姿",
+      "level": 1
+    }
+  ],
+  "academiaSkills": [
+    {
+      "name": "CARE",
+      "name_cn": "照護",
+      "level": 1
+    },
+    {
+      "name": "CRAFT",
+      "name_cn": "工匠",
+      "level": 1
+    },
+    {
+      "name": "CULTURE",
+      "name_cn": "文化",
+      "level": 1
+    },
+    {
+      "name": "INSIGHT",
+      "name_cn": "洞悉",
+      "level": 1
+    },
+    {
+      "name": "INVESTIGATION",
+      "name_cn": "調查",
+      "level": 1
+    }
+  ],
+  "warSkills": [
+    {
+      "name": "ATHLETICS",
+      "name_cn": "運動",
+      "level": 1
+    },
+    {
+      "name": "AUTHORITY",
+      "name_cn": "權威",
+      "level": 1
+    },
+    {
+      "name": "FIGHT",
+      "name_cn": "武術",
+      "level": 1
+    },
+    {
+      "name": "STRENGTH",
+      "name_cn": "力量",
+      "level": 1
+    },
+    {
+      "name": "WILL",
+      "name_cn": "意志",
+      "level": 1
+    }
+  ],
+  "streetSkills": [
+    {
+      "name": "CAUTION",
+      "name_cn": "警覺",
+      "level": 1
+    },
+    {
+      "name": "DEXTERITY",
+      "name_cn": "敏捷",
+      "level": 1
+    },
+    {
+      "name": "ELUSION",
+      "name_cn": "迴避",
+      "level": 1
+    },
+    {
+      "name": "EXPLORATION",
+      "name_cn": "探索",
+      "level": 1
+    },
+    {
+      "name": "SHOOT",
+      "name_cn": "射術",
+      "level": 1
+    }
+  ],
+  "conditions": [
+    {
+      "name_en": "Embarrassed",
+      "name_cn": "尷尬",
+      "icon": "heart",
+      "checked": false
+    },
+    {
+      "name_en": "Tired",
+      "name_cn": "疲憊",
+      "icon": "",
+      "checked": false
+    },
+    {
+      "name_en": "Confused",
+      "name_cn": "困惑",
+      "icon": "diamond",
+      "checked": false
+    },
+    {
+      "name_en": "Sick",
+      "name_cn": "生病",
+      "icon": "",
+      "checked": false
+    },
+    {
+      "name_en": "Hurt",
+      "name_cn": "受傷",
+      "icon": "club",
+      "checked": false
+    },
+    {
+      "name_en": "Poisoned",
+      "name_cn": "中毒",
+      "icon": "",
+      "checked": false
+    },
+    {
+      "name_en": "Scared",
+      "name_cn": "驚恐",
+      "icon": "spade",
+      "checked": false
+    },
+    {
+      "name_en": "Broken",
+      "name_cn": "崩潰",
+      "icon": "",
+      "checked": false
+    },
+    {
+      "name_en": "",
+      "name_cn": "",
+      "icon": "text",
+      "checked": false
+    },
+    {
+      "name_en": "",
+      "name_cn": "",
+      "icon": "text",
+      "checked": false
+    }
+  ],
+  "currentDecorum": 3,
+  "currentStress": 0,
+  "currentTTT": 1,
+  "equipmentText": "",
+  "wealthLevel": "middle",
+  "coins": 0,
+  "traits": [
+    "",
+    "",
+    "",
+    ""
+  ],
+  "attributes": {
+    "grit": 1,
+    "luck": 1
+  },
+  "characterInfo": {
+    "name": "",
+    "homeland": "",
+    "profession": "",
+    "vocation": "",
+    "languages": ""
+  },
+  "memories": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "experiences": "",
+  "contracts": "",
+  "tttNotes": ""
+}
