@@ -3,7 +3,7 @@
     <!-- Spotlight Icon with Selection Circles -->
     <div class="flex justify-center mb-3 relative w-56 h-56">
       <!-- Main Spotlight Circle -->
-      <div class="w-40 h-40 bg-amber-900 rounded-full flex items-center justify-center border-4 border-amber-700">
+      <div class="w-40 h-40 rounded-full flex items-center justify-center border-4 ">
         <img 
           src="/assets/Spotlight_Adventure_black.webp" 
           alt="Spotlight"
@@ -17,7 +17,7 @@
         :key="index"
         class="absolute w-6 h-6 border-2 rounded-full cursor-pointer transition-all"
         :class="[
-          checked ? 'bg-amber-900 border-amber-900' : 'bg-white border-amber-900',
+          checked ? 'bg-amber-900 border-amber-900' : 'bg-white ',
           index === 0 ? 'top-3 right-17' : index === 1 ? 'top-8 right-11.5' : 'top-14 right-9'
         ]"
         @click="toggleSpotlight(index)"
