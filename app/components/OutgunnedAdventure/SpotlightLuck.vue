@@ -1,9 +1,9 @@
 <template>
-  <div class="space-y-3">
+  <div class="flex flex-col items-center gap-0">
     <!-- Spotlight Icon with Selection Circles -->
-    <div class="flex justify-center mb-3 relative w-56 h-56">
+    <div class="relative w-44 h-40 pt-3 flex justify-center items-center">
       <!-- Main Spotlight Circle -->
-      <div class="w-40 h-40 rounded-full flex items-center justify-center border-4 ">
+      <div class="flex justify-center items-center">
         <img 
           src="/assets/Spotlight_Adventure_black.webp" 
           alt="Spotlight"
@@ -17,47 +17,51 @@
         :key="index"
         class="absolute w-6 h-6 border-2 rounded-full cursor-pointer transition-all"
         :class="[
-          checked ? 'bg-amber-900 border-amber-900' : 'bg-white ',
-          index === 0 ? 'top-3 right-17' : index === 1 ? 'top-8 right-11.5' : 'top-14 right-9'
+          checked ? 'bg-black border-black' : 'bg-white ',
+          index === 0 ? 'top-5 right-11' : index === 1 ? 'top-10 right-5.5' : 'top-16 right-3'
         ]"
         @click="toggleSpotlight(index)"
-      >
-        <span v-if="checked" class="text-white font-bold text-xs flex items-center justify-center h-full">✓</span>
-      </div>
+      />
     </div>
 
     <!-- Luck Label and Dice -->
-    <div class="space-y-2">
-      <div class="text-center font-bold text-lg text-amber-900 tracking-wider">
-        LUCK!
-      </div>
-      
-      <!-- 6 Dice Checkboxes -->
-      <div class="flex justify-center gap-2">
+    <div class="flex flex-col items-center">
+      <!-- Luck Section -->
+      <div class="space-y-2 relative w-full flex flex-col items-center">
         <div 
-          v-for="(checked, index) in luckCheckboxes" 
-          :key="index"
-          class="w-6 h-6 border-2 border-amber-900 rounded flex items-center justify-center cursor-pointer hover:bg-amber-100 transition-colors"
-          @click="toggleLuck(index)"
+          class="text-center font-bold text-lg text-amber-900 tracking-wider cursor-help relative"
         >
-          <span v-if="checked" class="text-amber-900 font-bold text-sm">✓</span>
+          幸運!
         </div>
-      </div>
+        
+        <!-- 6 Dice Checkboxes -->
+        <div class="flex justify-center gap-2">
+          <img 
+            v-for="(checked, index) in luckCheckboxes" 
+            :key="index"
+            :src="checked ? '/assets/AdrenalinaCheck_black_checked.webp' : '/assets/AdrenalinaCheck_black.webp'"
+            :alt="`Luck ${index + 1}`"
+            class="w-6 h-10 cursor-pointer hover:opacity-80 transition-opacity"
+            @click="toggleLuck(index)"
+          />
+        </div>
 
-      <!-- Info Text -->
-      <div class="text-center text-xs text-amber-900 space-y-1">
-        <div>♦ GAIN +1</div>
-        <div>♦ 6 TAKE THE SPOTLIGHT</div>
+        <!-- Info Text -->
+        <div class="text-left text-xs text-amber-900 space-y-1">
+          <div>♦ 花 1 點幸運，行動或反應獲得 +1</div>
+          <div>♦ 花 6 點幸運，獲得一次矚目時刻</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useCharacterStore } from '~/stores/character'
 
 const characterStore = useCharacterStore()
+const showTip = ref(false)
 
 // Spotlight Checkboxes (3 circles around the icon)
 const spotlightCheckboxes = computed({

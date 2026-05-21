@@ -172,8 +172,11 @@ export const useCharacterStore = defineStore('character', {
     // Memories
     memories: ['', '', '', '', '', '', ''],
     
+    // Treasure
+    treasure: '',
+    
     // Experiences
-    experiences: '',
+    experiences: ['', '', '', ''],
     
     // Spotlight Checkboxes (3 circles)
     spotlight: [false, false, false],
@@ -342,6 +345,7 @@ export const useCharacterStore = defineStore('character', {
         attributeItemStates: this.attributeItemStates,
         characterInfo: this.characterInfo,
         memories: this.memories,
+        treasure: this.treasure,
         experiences: this.experiences,
         spotlight: this.spotlight,
         contracts: this.contracts,
@@ -388,7 +392,8 @@ export const useCharacterStore = defineStore('character', {
             attributeItemStates: jsonData.attributeItemStates || {},
             characterInfo: jsonData.characterInfo || {},
             memories: jsonData.memories || [],
-            experiences: jsonData.experiences || '',
+            treasure: jsonData.treasure || '',
+            experiences: jsonData.experiences || ['', '', '', ''],
             spotlight: jsonData.spotlight || [false, false, false],
             contracts: jsonData.contracts || '',
             tttNotes: jsonData.tttNotes || ''
@@ -513,6 +518,7 @@ export const useCharacterStore = defineStore('character', {
           'attributeItemStates',
           'characterInfo',
           'memories',
+          'treasure',
           'experiences',
           'spotlight',
           'contracts',
