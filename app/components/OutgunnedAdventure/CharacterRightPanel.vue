@@ -32,6 +32,17 @@
         <!-- Placeholder (Right) -->
         <div class="w-18"></div>
       </div>
+
+      <!-- Guns & Gear Row --> <div class="flex gap-3">
+                <div class="flex-1">
+           <GunsAndGear />
+        </div>
+       
+
+
+        <!-- Placeholder (Right) -->
+        <div class="w-18"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -41,6 +52,7 @@ import SpotlightLuck from './SpotlightLuck.vue'
 import Experiences from './Experiences.vue'
 import YouLook from './YouLook.vue'
 import DeathRoulette from './DeathRoulette.vue'
+import GunsAndGear from './GunsAndGear.vue'
 </script>
 
 <style scoped>

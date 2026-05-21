@@ -13,10 +13,10 @@
       <div class="absolute inset-0 flex items-center justify-center">
         <!-- Slot 1 (Top) -->
         <button
-          @click="toggleSlot(0)"
+          @click="toggleSlot(5)"
           :class="[
             'absolute w-12 h-12 rounded-full font-bold text-sm flex items-center justify-center transition-all duration-200 cursor-pointer',
-            characterStore.deathRoulette[0] ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-900 border-2 border-gray-900'
+            characterStore.deathRoulette[5] ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-900 border-2 border-gray-900'
           ]"
           style="top: 9%; left: 50%; transform: translateX(-50%)"
         >
@@ -25,10 +25,10 @@
         
         <!-- Slot 2 (Top Right) -->
         <button
-          @click="toggleSlot(1)"
+          @click="toggleSlot(0)"
           :class="[
             'absolute w-12 h-12 rounded-full font-bold text-sm flex items-center justify-center transition-all duration-200 cursor-pointer',
-            characterStore.deathRoulette[1] ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-900 border-2 border-gray-900'
+            characterStore.deathRoulette[0] ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-900 border-2 border-gray-900'
           ]"
           style="top: 24%; right: 13%; transform: translateX(0)"
         >
@@ -37,10 +37,10 @@
         
         <!-- Slot 3 (Bottom Right) -->
         <button
-          @click="toggleSlot(2)"
+          @click="toggleSlot(1)"
           :class="[
             'absolute w-12 h-12 rounded-full font-bold text-sm flex items-center justify-center transition-all duration-200 cursor-pointer',
-            characterStore.deathRoulette[2] ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-900 border-2 border-gray-900'
+            characterStore.deathRoulette[1] ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-900 border-2 border-gray-900'
           ]"
           style="bottom: 24%; right: 13%"
         >
@@ -49,10 +49,10 @@
         
         <!-- Slot 4 (Bottom) -->
         <button
-          @click="toggleSlot(3)"
+          @click="toggleSlot(2)"
           :class="[
             'absolute w-12 h-12 rounded-full font-bold text-sm flex items-center justify-center transition-all duration-200 cursor-pointer',
-            characterStore.deathRoulette[3] ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-900 border-2 border-gray-900'
+            characterStore.deathRoulette[2] ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-900 border-2 border-gray-900'
           ]"
           style="bottom: 9%; left: 50%; transform: translateX(-50%)"
         >
@@ -61,10 +61,10 @@
         
         <!-- Slot 5 (Bottom Left) -->
         <button
-          @click="toggleSlot(4)"
+          @click="toggleSlot(3)"
           :class="[
             'absolute w-12 h-12 rounded-full font-bold text-sm flex items-center justify-center transition-all duration-200 cursor-pointer',
-            characterStore.deathRoulette[4] ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-900 border-2 border-gray-900'
+            characterStore.deathRoulette[3] ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-900 border-2 border-gray-900'
           ]"
           style="bottom: 24%; left: 13%"
         >
@@ -73,10 +73,10 @@
         
         <!-- Slot 6 (Top Left) -->
         <button
-          @click="toggleSlot(5)"
+          @click="toggleSlot(4)"
           :class="[
             'absolute w-12 h-12 rounded-full font-bold text-sm flex items-center justify-center transition-all duration-200 cursor-pointer',
-            characterStore.deathRoulette[5] ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-900 border-2 border-gray-900'
+            characterStore.deathRoulette[4] ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-900 border-2 border-gray-900'
           ]"
           style="top: 24%; left: 13%"
         >

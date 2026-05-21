@@ -64,29 +64,16 @@ const characterStore = useCharacterStore()
 const showTip = ref(false)
 
 // Spotlight Checkboxes (3 circles around the icon)
-const spotlightCheckboxes = computed({
-  get: () => characterStore.spotlight,
-  set: (newValue) => {
-    characterStore.spotlight = newValue
-  }
-})
+const spotlightCheckboxes = computed(() => characterStore.spotlight)
 
 const toggleSpotlight = (index: number) => {
-  const newStates = [...spotlightCheckboxes.value]
-  newStates[index] = !newStates[index]
-  spotlightCheckboxes.value = newStates
+  characterStore.toggleSpotlight(index)
 }
 
 // Luck Checkboxes (6 dice)
-const luckCheckboxes = computed({
-  get: () => {
-    const luck = characterStore.attributes.luck
-    return Array.from({ length: 6 }, (_, i) => i < luck)
-  },
-  set: (newValue) => {
-    const count = newValue.filter(v => v).length
-    characterStore.attributes.luck = count
-  }
+const luckCheckboxes = computed(() => {
+  const luck = characterStore.attributes.luck
+  return Array.from({ length: 6 }, (_, i) => i < luck)
 })
 
 const toggleLuck = (index: number) => {
@@ -94,9 +81,9 @@ const toggleLuck = (index: number) => {
   
   if (!luckCheckboxes.value[index]) {
     const newCount = Math.max(currentChecked + 1, index + 1)
-    characterStore.attributes.luck = newCount
+    characterStore.setLuck(newCount)
   } else {
-    characterStore.attributes.luck = index
+    characterStore.setLuck(index)
   }
 }
 </script>

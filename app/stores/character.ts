@@ -186,6 +186,27 @@ export const useCharacterStore = defineStore('character', {
     // Death Roulette (6 chambers, 1 is owned by default)
     deathRoulette: [true, false, false, false, false, false],
     
+    // Ammo Slots (each item 1-3 has 0-3 ammo count)
+    ammo: {
+      item1: 0,
+      item2: 0,
+      item3: 0
+    },
+    
+    // Guns & Gear Equipment (6 input fields)
+    equipment: {
+      item1: '',
+      item2: '',
+      item3: '',
+      item4: '',
+      item5: '',
+      item6: ''
+    },
+    
+    // Backpack & Bag Notes (5 rows each)
+    backpackNotes: ['', '', '', '', ''],
+    bagNotes: ['', '', '', '', ''],
+    
     // Contracts
     contracts: '',
 
@@ -355,6 +376,9 @@ export const useCharacterStore = defineStore('character', {
         conditions: this.conditions,
         spotlight: this.spotlight,
         deathRoulette: this.deathRoulette,
+        equipment: this.equipment,
+        backpackNotes: this.backpackNotes,
+        bagNotes: this.bagNotes,
         contracts: this.contracts,
         tttNotes: this.tttNotes
       }
@@ -404,6 +428,14 @@ export const useCharacterStore = defineStore('character', {
             conditions: this.normalizeConditions(jsonData.conditions),
             spotlight: jsonData.spotlight || [false, false, false],
             deathRoulette: jsonData.deathRoulette || [true, false, false, false, false, false],
+            equipment: jsonData.equipment || {
+              revolver: true,
+              knife: true,
+              winterClothes: true,
+              rope: ''
+            },
+            backpackNotes: jsonData.backpackNotes || '',
+            bagNotes: jsonData.bagNotes || '',
             contracts: jsonData.contracts || '',
             tttNotes: jsonData.tttNotes || ''
           }
@@ -579,25 +611,175 @@ export const useCharacterStore = defineStore('character', {
       }
     },
 
-    // Death Roulette 槽位切換
+    // Death Roulette 槽位切換 (範圍選擇：點擊 i 則 0-i 都會亮)
     toggleDeathRoulette(index: number) {
       if (index >= 0 && index < this.deathRoulette.length) {
-        this.$patch({
-          deathRoulette: [
-            ...this.deathRoulette.slice(0, index),
-            !this.deathRoulette[index],
-            ...this.deathRoulette.slice(index + 1)
-          ]
-        })
+        const isCurrentlyChecked = this.deathRoulette[index]
+        const newValue = !isCurrentlyChecked
+        const newDeathRoulette = Array(this.deathRoulette.length).fill(false)
+        for (let i = 0; i <= index; i++) {
+          newDeathRoulette[i] = newValue
+        }
+        this.$patch({ deathRoulette: newDeathRoulette })
         this.saveToLocalStorage()
       }
     },
 
-    // 開始新電影 - 重置相關狀態
+    // 矚目時刻槽位切換 (範圍選擇：點擊 i 則 0-i 都會亮)
+    toggleSpotlight(index: number) {
+      if (index >= 0 && index < this.spotlight.length) {
+        const isCurrentlyChecked = this.spotlight[index]
+        const newValue = !isCurrentlyChecked
+        const newSpotlight = Array(this.spotlight.length).fill(false)
+        for (let i = 0; i <= index; i++) {
+          newSpotlight[i] = newValue
+        }
+        this.$patch({ spotlight: newSpotlight })
+        this.saveToLocalStorage()
+      }
+    },
+
+    // 彈藥槽位切換 (範圍選擇：點擊 i 則 1-i 都會亮)
+    toggleAmmo(itemId: string, index: number) {
+      const validItems = ['item1', 'item2', 'item3']
+      if (!validItems.includes(itemId)) return
+      
+      const currentCount = (this.ammo as any)[itemId] || 0
+      // 如果當前數值等於要點擊的位置，則清空；否則設為點擊的位置
+      const newCount = currentCount === index ? 0 : index
+      
+      this.$patch({
+        ammo: {
+          ...this.ammo,
+          [itemId]: newCount
+        }
+      })
+      this.saveToLocalStorage()
+    },
+
+    // 設置幸運數值
+    setLuck(count: number) {
+      this.$patch({
+        attributes: {
+          ...this.attributes,
+          luck: Math.max(0, Math.min(6, count))
+        }
+      })
+      this.saveToLocalStorage()
+    },
+
+    // 背包筆記行更新
+    setBackpackNoteRow(index: number, value: string) {
+      this.$patch({
+        backpackNotes: [
+          ...this.backpackNotes.slice(0, index),
+          value,
+          ...this.backpackNotes.slice(index + 1)
+        ]
+      })
+      this.saveToLocalStorage()
+    },
+
+    // 提包筆記行更新
+    setBagNoteRow(index: number, value: string) {
+      this.$patch({
+        bagNotes: [
+          ...this.bagNotes.slice(0, index),
+          value,
+          ...this.bagNotes.slice(index + 1)
+        ]
+      })
+      this.saveToLocalStorage()
+    },
+
+    // 開始新電影 - 重置所有相關狀態
     resetForNewMovie() {
       this.$patch({
+        // 清空角色細節
+        imageUrl: '',
+        characterDetails: {
+          name: '',
+          role: '',
+          trope: '',
+          background: '',
+          age: '',
+          flaw: '',
+          catchphrase: ''
+        },
+
+        // 清空角色資訊
+        characterInfo: {
+          name: '',
+          homeland: '',
+          profession: '',
+          vocation: '',
+          languages: ''
+        },
+
+        // 清空記憶
+        memories: ['', '', '', '', '', '', ''],
+
+        // 清空寶藏
+        treasure: '',
+
+        // 清空經歷
+        experiences: ['', '', '', ''],
+
+        // 清空自定義條件名稱
+        youLook: ['', ''],
+
+        // 重置牌組
+        aces: [
+          { name: 'Hearts', icon: 'ace-hearts', active: false },
+          { name: 'Diamonds', icon: 'ace-diamonds', active: false },
+          { name: 'Clubs', icon: 'ace-clubs', active: false },
+          { name: 'Spades', icon: 'ace-spades', active: false },
+          { name: 'Joker', icon: 'ace-joker', active: false }
+        ],
+
+        // 清空招式
+        moves: [
+          { text: '', suits: { heart: false, diamond: false, club: false, spade: false }, used: false },
+          { text: '', suits: { heart: false, diamond: false, club: false, spade: false }, used: false },
+          { text: '', suits: { heart: false, diamond: false, club: false, spade: false }, used: false }
+        ],
+
+        // 重置技能等級
+        categoryLevels: {
+          society: 1,
+          academia: 1,
+          war: 1,
+          street: 1
+        },
+
+        // 重置屬性
+        attributes: {
+          grit: 1,
+          luck: 1
+        },
+
+        // 清空特質
+        traits: ['', '', '', ''],
+
+        // 清空特技
+        feats: ['', '', '', '', '', ''],
+
+        // 重置禮儀值
+        currentDecorum: 3,
+
+        // 重置壓力值
+        currentStress: 0,
+
+        // 重置TTT
+        currentTTT: 1,
+
+        // 清空裝備與財富
+        equipmentText: '',
+        wealthLevel: 'middle',
+
         // 重置毅力
         gritChecked: [false, false, false, false, false, false, false, false, false, false, false, false],
+
         // 重置你看起來的所有條件
         conditions: {
           tired: false,
@@ -610,18 +792,80 @@ export const useCharacterStore = defineStore('character', {
           youLook1: false,
           youLook2: false
         },
-        // 重置死亡輪盤到1
+
+        // 重置致命輪盤到1
         deathRoulette: [true, false, false, false, false, false],
+
         // 重置聚光燈到1
         spotlight: [true, false, false],
-        // 重置幸運到1
-        attributes: {
-          ...this.attributes,
-          luck: 1
+
+        // 清空槍枝與裝備數據
+        equipment: {
+          item1: '',
+          item2: '',
+          item3: '',
+          item4: '',
+          item5: '',
+          item6: ''
+        },
+        ammo: {
+          item1: 0,
+          item2: 0,
+          item3: 0
+        },
+        coins: 0,
+        backpackNotes: ['', '', '', '', ''],
+        bagNotes: ['', '', '', '', ''],
+
+        // 清空合約與TTT筆記
+        contracts: '',
+        tttNotes: '',
+
+        // 重置屬性組狀態
+        attributeGroupStates: {
+          brawn: [true, true, false],
+          nerves: [true, true, false],
+          smooth: [true, true, false],
+          focus: [true, true, false],
+          crime: [true, true, false]
+        },
+
+        // 重置屬性項目狀態
+        attributeItemStates: {
+          brawn: {
+            '忍耐': [true, false, false],
+            '戰鬥': [true, false, false],
+            '蠻力': [true, false, false],
+            '特技': [true, false, false]
+          },
+          nerves: {
+            '冷靜': [true, false, false],
+            '駕駛': [true, false, false],
+            '射擊': [true, false, false],
+            '求生': [true, false, false]
+          },
+          smooth: {
+            '調情': [true, false, false],
+            '領導': [true, false, false],
+            '話術': [true, false, false],
+            '風範': [true, false, false]
+          },
+          focus: {
+            '偵查': [true, false, false],
+            '治療': [true, false, false],
+            '修理': [true, false, false],
+            '知識': [true, false, false]
+          },
+          crime: {
+            '警覺': [true, false, false],
+            '巧手': [true, false, false],
+            '潛行': [true, false, false],
+            '街頭智慧': [true, false, false]
+          }
         }
       })
       this.saveToLocalStorage()
-      console.log('✓ 開始新電影 - 狀態已重置')
+      console.log('✓ 開始新電影 - 所有狀態已重置')
     }
   },
   
@@ -662,6 +906,10 @@ export const useCharacterStore = defineStore('character', {
           'conditions',
           'spotlight',
           'deathRoulette',
+          'ammo',
+          'equipment',
+          'backpackNotes',
+          'bagNotes',
           'contracts',
           'tttNotes'
         ],
