@@ -6,7 +6,7 @@
       class="relative w-10 h-10 flex items-center justify-center hover:opacity-80 transition cursor-pointer"
     >
       <img
-        :src="`/assets/${checked ? checkedImage : uncheckedImage}`"
+        :src="useAssetPath(`/assets/${checked ? checkedImage : uncheckedImage}`)"
         :alt="`Item ${index + 1}`"
         class="w-full h-full object-contain"
       />
@@ -15,6 +15,8 @@
 </template>
 
 <script setup lang="ts">
+import { useAssetPath } from '~/composables/useAssetPath'
+
 defineProps<{
   index: number
   checked: boolean

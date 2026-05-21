@@ -4,7 +4,7 @@
     class="relative w-6 h-6 flex items-center justify-center hover:opacity-80 transition"
   >
     <img
-      :src="`/assets/${checked ? 'CheckNegro_checked.webp' : 'CheckNegro.webp'}`"
+      :src="useAssetPath(`/assets/${checked ? 'CheckNegro_checked.webp' : 'CheckNegro.webp'}`)"
       :alt="checked ? 'Checked' : 'Unchecked'"
       class="w-full h-full object-contain"
     />
@@ -12,6 +12,8 @@
 </template>
 
 <script setup lang="ts">
+import { useAssetPath } from '~/composables/useAssetPath'
+
 defineProps<{
   checked: boolean
 }>()
