@@ -182,10 +182,13 @@ export const useCharacterStore = defineStore('character', {
     
     // Spotlight Checkboxes (3 circles)
     spotlight: [false, false, false],
+
+    // Death Roulette (6 chambers, 1 is owned by default)
+    deathRoulette: [true, false, false, false, false, false],
     
     // Contracts
     contracts: '',
-    
+
     // TTT Notes
     tttNotes: ''
   }),
@@ -351,6 +354,7 @@ export const useCharacterStore = defineStore('character', {
         youLook: this.youLook,
         conditions: this.conditions,
         spotlight: this.spotlight,
+        deathRoulette: this.deathRoulette,
         contracts: this.contracts,
         tttNotes: this.tttNotes
       }
@@ -399,6 +403,7 @@ export const useCharacterStore = defineStore('character', {
             youLook: jsonData.youLook || ['', ''],
             conditions: this.normalizeConditions(jsonData.conditions),
             spotlight: jsonData.spotlight || [false, false, false],
+            deathRoulette: jsonData.deathRoulette || [true, false, false, false, false, false],
             contracts: jsonData.contracts || '',
             tttNotes: jsonData.tttNotes || ''
           }
@@ -572,6 +577,51 @@ export const useCharacterStore = defineStore('character', {
         // 立即保存到 localStorage
         this.saveToLocalStorage()
       }
+    },
+
+    // Death Roulette 槽位切換
+    toggleDeathRoulette(index: number) {
+      if (index >= 0 && index < this.deathRoulette.length) {
+        this.$patch({
+          deathRoulette: [
+            ...this.deathRoulette.slice(0, index),
+            !this.deathRoulette[index],
+            ...this.deathRoulette.slice(index + 1)
+          ]
+        })
+        this.saveToLocalStorage()
+      }
+    },
+
+    // 開始新電影 - 重置相關狀態
+    resetForNewMovie() {
+      this.$patch({
+        // 重置毅力
+        gritChecked: [false, false, false, false, false, false, false, false, false, false, false, false],
+        // 重置你看起來的所有條件
+        conditions: {
+          tired: false,
+          hurt: false,
+          nervous: false,
+          likeAFool: false,
+          distracted: false,
+          scared: false,
+          broken: false,
+          youLook1: false,
+          youLook2: false
+        },
+        // 重置死亡輪盤到1
+        deathRoulette: [true, false, false, false, false, false],
+        // 重置聚光燈到1
+        spotlight: [true, false, false],
+        // 重置幸運到1
+        attributes: {
+          ...this.attributes,
+          luck: 1
+        }
+      })
+      this.saveToLocalStorage()
+      console.log('✓ 開始新電影 - 狀態已重置')
     }
   },
   
@@ -611,6 +661,7 @@ export const useCharacterStore = defineStore('character', {
           'youLook',
           'conditions',
           'spotlight',
+          'deathRoulette',
           'contracts',
           'tttNotes'
         ],
