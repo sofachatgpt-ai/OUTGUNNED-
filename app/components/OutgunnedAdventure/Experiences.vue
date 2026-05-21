@@ -49,6 +49,29 @@
       成就、傷痕、羈絆與聲譽
     </div>
 
+    <!-- Export/Import Buttons -->
+    <div class="flex gap-2 mt-4">
+      <button
+        @click="exportCharacter"
+        class="flex-1 px-4 py-2 bg-blue-600 text-white rounded font-bold text-sm hover:bg-blue-700 transition-colors"
+      >
+        📥 匯出角色
+      </button>
+      <button
+        @click="triggerImport"
+        class="flex-1 px-4 py-2 bg-green-600 text-white rounded font-bold text-sm hover:bg-green-700 transition-colors"
+      >
+        📤 匯入角色
+      </button>
+      <input
+        ref="fileInput"
+        type="file"
+        accept=".json,application/json"
+        style="display: none"
+        @change="importCharacter"
+      />
+    </div>
+
     <!-- Start New Movie Button -->
     <button
       @click="showConfirmDialog = true"
@@ -146,6 +169,7 @@ import { ref } from 'vue'
 
 const characterStore = useCharacterStore()
 const showConfirmDialog = ref(false)
+const fileInput = ref<HTMLInputElement | null>(null)
 
 const setExperience = (index: number, value: string) => {
   if (!Array.isArray(characterStore.experiences)) {
@@ -154,6 +178,42 @@ const setExperience = (index: number, value: string) => {
   const experiences = [...characterStore.experiences]
   experiences[index] = value
   characterStore.experiences = experiences
+}
+
+const exportCharacter = () => {
+  const jsonData = characterStore.exportCharacterData()
+  const element = document.createElement('a')
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonData))
+  element.setAttribute('download', `outgunned-character-${new Date().getTime()}.json`)
+  element.style.display = 'none'
+  document.body.appendChild(element)
+  element.click()
+  document.body.removeChild(element)
+  alert('✓ 角色數據已匯出')
+}
+
+const triggerImport = () => {
+  fileInput.value?.click()
+}
+
+const importCharacter = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+  if (!file) return
+
+  const reader = new FileReader()
+  reader.onload = (e) => {
+    const content = e.target?.result as string
+    const success = characterStore.importCharacterData(content)
+    if (success) {
+      alert('✓ 角色數據已成功匯入')
+    } else {
+      alert('✗ 匯入失敗，請檢查文件格式')
+    }
+    // 重置文件輸入
+    target.value = ''
+  }
+  reader.readAsText(file)
 }
 
 const confirmNewMovie = () => {

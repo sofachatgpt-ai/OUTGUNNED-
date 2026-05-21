@@ -866,6 +866,34 @@ export const useCharacterStore = defineStore('character', {
       })
       this.saveToLocalStorage()
       console.log('✓ 開始新電影 - 所有狀態已重置')
+    },
+
+    // 匯出角色數據為 JSON
+    exportCharacterData() {
+      const data = JSON.stringify(this.$state, null, 2)
+      return data
+    },
+
+    // 匯入角色數據從 JSON
+    importCharacterData(jsonString: string) {
+      try {
+        const data = JSON.parse(jsonString)
+        // 驗證基本結構
+        if (!data || typeof data !== 'object') {
+          throw new Error('無效的 JSON 格式')
+        }
+        // 導入數據並正規化
+        this.$patch(data)
+        if (data.conditions) {
+          this.conditions = this.normalizeConditions(data.conditions)
+        }
+        this.saveToLocalStorage()
+        console.log('✓ 角色數據已成功匯入')
+        return true
+      } catch (error) {
+        console.error('❌ 匯入失敗:', error)
+        return false
+      }
     }
   },
   
