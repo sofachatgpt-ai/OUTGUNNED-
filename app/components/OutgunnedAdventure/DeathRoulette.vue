@@ -4,7 +4,7 @@
     <div class="relative w-56 h-56">
       <!-- Background Image -->
       <img 
-        src="/assets/Ruleta_muerte_black.webp" 
+        :src="useAssetPath('/assets/Ruleta_muerte_black.webp')"
         alt="Death Roulette"
         class="absolute inset-0 w-full h-full object-contain pointer-events-none"
       />
@@ -90,6 +90,7 @@
 
 <script setup lang="ts">
 import { useCharacterStore } from '~/stores/character'
+import { useAssetPath } from '~/composables/useAssetPath'
 
 const characterStore = useCharacterStore()
 

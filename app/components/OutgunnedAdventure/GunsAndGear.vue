@@ -27,7 +27,7 @@
               class="w-6 h-8 rounded flex items-center justify-center cursor-pointer transition-transform hover:scale-110 active:scale-95"
             >
               <img
-                :src="characterStore.ammo[`item${i}`] >= ammoCount ? '/assets/Cargador_checked_black.webp' : '/assets/Cargador_black.webp'"
+                :src="useAssetPath(characterStore.ammo[`item${i}`] >= ammoCount ? '/assets/Cargador_checked_black.webp' : '/assets/Cargador_black.webp')"
                 :alt="`${characterStore.equipment[`item${i}`] || `裝備${i}`} 彈藥 ${ammoCount}`"
                 class="w-full h-full object-contain"
               />
@@ -64,7 +64,7 @@
               class="w-6 h-6 cursor-pointer transition-transform hover:scale-110 active:scale-95"
             >
               <img
-                :src="characterStore.coins >= i ? '/assets/goldcheck_checked.webp' : '/assets/goldcheck.webp'"
+                :src="useAssetPath(characterStore.coins >= i ? '/assets/goldcheck_checked.webp' : '/assets/goldcheck.webp')"
                 :alt="`金幣 ${i}`"
                 class="w-full h-full object-contain"
               />
@@ -117,6 +117,7 @@
 
 <script setup lang="ts">
 import { useCharacterStore } from '~/stores/character'
+import { useAssetPath } from '~/composables/useAssetPath'
 
 const characterStore = useCharacterStore()
 

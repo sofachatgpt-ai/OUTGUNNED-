@@ -5,7 +5,7 @@
       <!-- Main Spotlight Circle -->
       <div class="flex justify-center items-center">
         <img 
-          src="/assets/Spotlight_Adventure_black.webp" 
+          :src="useAssetPath('/assets/Spotlight_Adventure_black.webp')"
           alt="Spotlight"
           class="w-32 h-32 object-contain"
         />
@@ -39,7 +39,7 @@
           <img 
             v-for="(checked, index) in luckCheckboxes" 
             :key="index"
-            :src="checked ? '/assets/AdrenalinaCheck_black_checked.webp' : '/assets/AdrenalinaCheck_black.webp'"
+            :src="useAssetPath(checked ? '/assets/AdrenalinaCheck_black_checked.webp' : '/assets/AdrenalinaCheck_black.webp')"
             :alt="`Luck ${index + 1}`"
             class="w-6 h-10 cursor-pointer hover:opacity-80 transition-opacity"
             @click="toggleLuck(index)"
@@ -59,6 +59,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useCharacterStore } from '~/stores/character'
+import { useAssetPath } from '~/composables/useAssetPath'
 
 const characterStore = useCharacterStore()
 const showTip = ref(false)
