@@ -74,20 +74,6 @@ export const useCharacterStore = defineStore('character', {
       { name: 'SHOOT', name_cn: '射術', level: 1, description: '使用射術來操作火器或遠程武器，或投擲各類武器。透過射術，你也可以將小物件擲向目標，或拋給你的同伴。' }
     ],
     
-    // Conditions
-    conditions: [
-      { name_en: 'Embarrassed', name_cn: '尷尬', icon: 'heart', checked: false, description: '在社交領域的所有擲骰承受 –1。你可能因為出醜、被人讓你難堪，或遭逢令人灼痛的羞辱或失敗而陷入尷尬。\n要移除此狀態，你必須贏得他人的尊重或重視，例如協助有需要的人，或證明你的英勇。或者，一名朋友可以透過在照護＋社交進行一次關鍵成功的擲骰來鼓舞你，從而移除此狀態。' },
-      { name_en: 'Tired', name_cn: '疲憊', icon: '', checked: false, description: '你不承受任何直接劣勢，但距離陷入崩潰又近了一步。在付出巨大努力後，或長時間未能充分進食、飲水或睡眠時，你可能會變得疲憫。\n要移除此狀態，在溫暖的床上睡一覺，或前往餐館享用一頓花費 2 枚金錢的好餐。在營地中，你或一名朋友也可以進行一次工匠＋社交的關鍵成功擲骰，準備一頓佳餚，讓所有享用的人都感到恢復精神。' },
-      { name_en: 'Confused', name_cn: '困惑', icon: 'diamond', checked: false, description: '在學識領域的所有擲骰承受 –1。你可能因為思緒中斷或過度專注、頭部受到撞擊，或因情緒激動、憤怒、分心而變得困惑。\n要移除此狀態，你必須花些時間清理思緒或放鬆，例如花費2 枚金錢外出用餐或看戲。' },
-      { name_en: 'Sick', name_cn: '生病', icon: '', checked: false, description: '即使在休息或獲得一次片刻喘息之後，你的壓力仍至少維持在 3 點。你可能因在寒冷中露宿、吃了腐敗的食物，或接觸到刺痛植物或有害孢子而生病。\n要移除此狀態，你必須在 3 天內不承受任何其他狀態，並同時確保良好飲食與遮蔽處所。' },
-      { name_en: 'Hurt', name_cn: '受傷', icon: 'club', checked: false, description: '在戰事領域的所有擲骰承受 –1。當你遭受嚴重傷勢、被敵人重擊，或自高處墜落時，便可能受傷。\n要移除此狀態，進行一次照護＋學識的關鍵成功擲骰。或者，若你身在城鎮，也可以前往醫師處，以 2 枚金錢治療傷勢。' },
-      { name_en: 'Poisoned', name_cn: '中毒', icon: '', checked: false, description: '在每個回合開始時，敘述者擲一顆數字骰。若結果為偶數：你承受 1 點壓力。若你已處於壓力滿載，並因本狀態承受額外壓力，你會陷入崩潰，但不會退場。\n當你接觸到有毒物質，或被討厭的野獸所傷時，便可能中毒。\n要移除此狀態，你可以以探索＋學識進行一次關鍵成功的擲骰來製作解毒劑，或以3 枚金錢購買一份。偶爾，敘述者也可能裁定：為了移除某種特定毒素的效果，你需要稀有且難以取得的材料。' },
-      { name_en: 'Scared', name_cn: '驚恐', icon: 'spade', checked: false, description: '在街巷領域的所有擲骰承受 –1。你可能因直面極其可怕、突如其來或震撼的事物，或因陷入絕望處境而感到驚恐。\n要移除此狀態，花些時間與一位朋友坦誠交談，誠實回顧發生的事情以及它對你的影響。或者，你也可以正面面對恐懼，或在困難情境中證明你的意志力或勇氣。' },
-      { name_en: 'Broken', name_cn: '崩潰', icon: '', checked: false, description: '所有擲骰額外承受 –1。即使在休息或獲得一次片刻喘息後，你的壓力也始終至少為 8 點。當你已擁有 3 個狀態，卻本應承受第 4 個時，你會改為陷入崩潰。在你移除至少一個狀態之前，無法再承受其他狀態。\n要移除此狀態，你能夠以照護＋學識進行一次極端成功的擲骰，或前往醫院治療，費用為 4 枚金錢。' },
-      { name_en: '', name_cn: '', icon: 'text', checked: false, description: '' },
-      { name_en: '', name_cn: '', icon: 'text', checked: false, description: '' }
-    ],
-    
     // Decorum
     currentDecorum: 3,
     
@@ -177,6 +163,22 @@ export const useCharacterStore = defineStore('character', {
     
     // Experiences
     experiences: ['', '', '', ''],
+    
+    // You Look (Custom Conditions)
+    youLook: ['', ''],
+    
+    // Conditions (for YouLook system)
+    conditions: {
+      tired: false,
+      hurt: false,
+      nervous: false,
+      likeAFool: false,
+      distracted: false,
+      scared: false,
+      broken: false,
+      youLook1: false,
+      youLook2: false
+    },
     
     // Spotlight Checkboxes (3 circles)
     spotlight: [false, false, false],
@@ -330,7 +332,6 @@ export const useCharacterStore = defineStore('character', {
         academiaSkills: this.academiaSkills,
         warSkills: this.warSkills,
         streetSkills: this.streetSkills,
-        conditions: this.conditions,
         currentDecorum: this.currentDecorum,
         currentStress: this.currentStress,
         currentTTT: this.currentTTT,
@@ -347,6 +348,8 @@ export const useCharacterStore = defineStore('character', {
         memories: this.memories,
         treasure: this.treasure,
         experiences: this.experiences,
+        youLook: this.youLook,
+        conditions: this.conditions,
         spotlight: this.spotlight,
         contracts: this.contracts,
         tttNotes: this.tttNotes
@@ -377,7 +380,6 @@ export const useCharacterStore = defineStore('character', {
             academiaSkills: jsonData.academiaSkills || [],
             warSkills: jsonData.warSkills || [],
             streetSkills: jsonData.streetSkills || [],
-            conditions: jsonData.conditions || [],
             currentDecorum: jsonData.currentDecorum || 3,
             currentStress: jsonData.currentStress || 0,
             currentTTT: jsonData.currentTTT || 1,
@@ -394,6 +396,8 @@ export const useCharacterStore = defineStore('character', {
             memories: jsonData.memories || [],
             treasure: jsonData.treasure || '',
             experiences: jsonData.experiences || ['', '', '', ''],
+            youLook: jsonData.youLook || ['', ''],
+            conditions: this.normalizeConditions(jsonData.conditions),
             spotlight: jsonData.spotlight || [false, false, false],
             contracts: jsonData.contracts || '',
             tttNotes: jsonData.tttNotes || ''
@@ -407,45 +411,50 @@ export const useCharacterStore = defineStore('character', {
         } else {
           // 从旧格式导入
           Object.keys(jsonData).forEach(key => {
-            if (key in this) {
+            if (key === 'conditions') {
+              this[key] = this.normalizeConditions(jsonData[key])
+            } else if (key in this) {
               this[key] = jsonData[key]
             }
           })
         }
         
-        // 檢查並補齊自訂狀態
-        this.ensureCustomConditions()
         return true
       } catch (error) {
         console.error('Import failed:', error)
         return false
       }
     },
-    
-    // 確保自訂狀態存在
-    ensureCustomConditions() {
-      // 檢查是否有足夠的 conditions (應該有 10 個)
-      const expectedLength = 10
-      if (this.conditions.length < expectedLength) {
-        // 計算需要補充的數量
-        const missingCount = expectedLength - this.conditions.length
-        for (let i = 0; i < missingCount; i++) {
-          this.conditions.push({
-            name_en: '',
-            name_cn: '',
-            icon: 'text',
-            checked: false,
-            description: ''
-          })
+
+    // 確保 conditions 是正確的 Object 格式
+    normalizeConditions(conditions: any) {
+      // 如果是陣列或不存在，使用預設對象
+      if (Array.isArray(conditions) || !conditions || typeof conditions !== 'object') {
+        console.warn('⚠ 舊版本 conditions，轉換為新格式')
+        return {
+          tired: false,
+          hurt: false,
+          nervous: false,
+          likeAFool: false,
+          distracted: false,
+          scared: false,
+          broken: false,
+          youLook1: false,
+          youLook2: false
         }
       }
-      // 如果沒有任何 icon='text' 的狀態，在最後添加兩個
-      const hasTextConditions = this.conditions.some(c => c.icon === 'text')
-      if (!hasTextConditions) {
-        this.conditions.push(
-          { name_en: '', name_cn: '', icon: 'text', checked: false, description: '' },
-          { name_en: '', name_cn: '', icon: 'text', checked: false, description: '' }
-        )
+      
+      // 如果是對象，確保有所有必要的鍵
+      return {
+        tired: conditions.tired ?? false,
+        hurt: conditions.hurt ?? false,
+        nervous: conditions.nervous ?? false,
+        likeAFool: conditions.likeAFool ?? false,
+        distracted: conditions.distracted ?? false,
+        scared: conditions.scared ?? false,
+        broken: conditions.broken ?? false,
+        youLook1: conditions.youLook1 ?? false,
+        youLook2: conditions.youLook2 ?? false
       }
     },
     
@@ -483,6 +492,85 @@ export const useCharacterStore = defineStore('character', {
       // 清除 localStorage
       if (process.client) {
         localStorage.removeItem('outgunned-character')
+        console.log('✓ 已清除 localStorage 舊數據')
+      }
+    },
+
+    // 初始化存儲，清理舊數據
+    // 手動保存到 localStorage（確保持久化）
+    saveToLocalStorage() {
+      if (process.client) {
+        try {
+          const fullState = this.$state
+          localStorage.setItem('outgunned-character', JSON.stringify(fullState))
+          console.log('💾 已保存到 localStorage')
+        } catch (error) {
+          console.error('❌ 保存失敗:', error)
+        }
+      }
+    },
+
+    initializeStore() {
+      if (process.client) {
+        try {
+          const data = localStorage.getItem('outgunned-character')
+          if (data) {
+            const parsed = JSON.parse(data)
+            // 檢查是否有舊格式 conditions（Array）
+            if (Array.isArray(parsed.conditions)) {
+              console.warn('🔄 檢測到舊格式 conditions（Array），正在升級...')
+              parsed.conditions = this.normalizeConditions(parsed.conditions)
+              // 保存升級後的數據
+              localStorage.setItem('outgunned-character', JSON.stringify(parsed))
+              console.log('✓ 已升級舊數據格式')
+            }
+            this.$patch(parsed)
+          }
+        } catch (error) {
+          console.error('❌ 初始化存儲失敗:', error)
+        }
+      }
+    },
+
+    // YouLook 條件切換方法
+    toggleYouLookCondition(condition: string) {
+      // 確保 conditions 是正確的 Object 格式
+      if (Array.isArray(this.conditions)) {
+        console.warn('⚠ 檢測到舊格式 Array，正在轉換為 Object...')
+        this.conditions = this.normalizeConditions(this.conditions)
+      }
+      
+      if (condition in this.conditions) {
+        const oldValue = (this.conditions as any)[condition]
+        // 使用 $patch 確保狀態變化被正確追踪
+        this.$patch({
+          conditions: {
+            ...this.conditions,
+            [condition]: !oldValue
+          }
+        })
+        console.log(`✓ ${condition}: ${oldValue} → ${!oldValue}`)
+        
+        // 立即保存到 localStorage
+        this.saveToLocalStorage()
+      } else {
+        console.error(`✗ condition "${condition}" 不存在，可用鍵:`, Object.keys(this.conditions))
+      }
+    },
+
+    // 更新自定義條件名稱
+    setYouLookName(index: number, value: string) {
+      if (index >= 0 && index < this.youLook.length) {
+        // 使用 $patch 確保狀態變化被正確追踪
+        this.$patch({
+          youLook: [
+            ...this.youLook.slice(0, index),
+            value,
+            ...this.youLook.slice(index + 1)
+          ]
+        })
+        // 立即保存到 localStorage
+        this.saveToLocalStorage()
       }
     }
   },
@@ -493,6 +581,7 @@ export const useCharacterStore = defineStore('character', {
       {
         key: 'outgunned-character',
         storage: localStorage,
+        version: 1,
         paths: [
           'imageUrl',
           'characterDetails',
@@ -503,7 +592,6 @@ export const useCharacterStore = defineStore('character', {
           'academiaSkills',
           'warSkills',
           'streetSkills',
-          'conditions',
           'currentDecorum',
           'currentStress',
           'currentTTT',
@@ -520,10 +608,19 @@ export const useCharacterStore = defineStore('character', {
           'memories',
           'treasure',
           'experiences',
+          'youLook',
+          'conditions',
           'spotlight',
           'contracts',
           'tttNotes'
-        ]
+        ],
+        beforeRestore: () => {
+          // 在恢复前执行，如果需要
+        },
+        afterRestore: (context) => {
+          // 恢复后确保 conditions 是正确的对象格式
+          context.store.conditions = context.store.normalizeConditions(context.store.conditions)
+        }
       }
     ]
   }
