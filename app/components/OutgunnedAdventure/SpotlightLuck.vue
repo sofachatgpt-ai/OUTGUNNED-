@@ -5,9 +5,9 @@
       <!-- Main Spotlight Circle -->
       <div class="flex justify-center items-center">
         <img 
-          :src="useAssetPath('/assets/Spotlight_Adventure_black.webp')"
+          :src="useAssetPath('/assets/Spotlight.webp')"
           alt="Spotlight"
-          class="w-32 h-32 object-contain"
+          class="spotlight-art w-32 h-32 object-contain"
         />
       </div>
 
@@ -39,8 +39,8 @@
           <img 
             v-for="(checked, index) in luckCheckboxes" 
             :key="index"
-            :src="useAssetPath(checked ? '/assets/AdrenalinaCheck_black_checked.webp' : '/assets/AdrenalinaCheck_black.webp')"
-            :alt="`Luck ${index + 1}`"
+            :src="useAssetPath(checked ? '/assets/AdrenalinaCheck_checked.webp' : '/assets/AdrenalinaCheck.webp')"
+            :alt="`腎上腺素 ${index + 1}`"
             class="w-6 h-10 cursor-pointer hover:opacity-80 transition-opacity"
             role="button" tabindex="0" :aria-pressed="checked" @keydown.enter.prevent="toggleLuck(index)" @keydown.space.prevent="toggleLuck(index)" @click="toggleLuck(index)"
           />
