@@ -1,8 +1,8 @@
 <template>
   <div class="experiences-section space-y-2">
-    <!-- Treasure -->
+    <!-- Mission -->
     <div class="flex items-center gap-2 text-xs">
-      <span class="font-bold text-amber-900 tracking-wider">寶藏</span>
+      <span class="font-bold text-amber-900 tracking-wider">任務名稱</span>
       <input
         :value="characterStore.treasure"
         @input="characterStore.treasure = $event.target.value"
@@ -46,7 +46,7 @@
 
     <!-- Info Text -->
     <div class="text-center text-xs text-amber-900 tracking-wider font-semibold">
-      成就、傷痕、羈絆與聲譽
+      成就、疤痕、羈絆與名聲
     </div>
 
     <!-- Export/Import Buttons -->
