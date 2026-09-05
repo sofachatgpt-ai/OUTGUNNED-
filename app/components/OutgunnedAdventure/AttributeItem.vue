@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center gap-1">
+  <div class="attribute-item flex items-center gap-1">
     <span class="text-sm font-bold text-amber-900 whitespace-nowrap ml-auto">{{ name }}</span>
     <div class="flex gap-1">
       <AttributeCheckbox

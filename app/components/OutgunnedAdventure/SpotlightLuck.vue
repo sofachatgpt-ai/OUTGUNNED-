@@ -1,13 +1,13 @@
 <template>
-  <div class="flex flex-col items-center gap-0">
+  <div class="spotlight-section flex flex-col items-center gap-0">
     <!-- Spotlight Icon with Selection Circles -->
     <div class="relative w-44 h-40 pt-3 flex justify-center items-center">
       <!-- Main Spotlight Circle -->
       <div class="flex justify-center items-center">
         <img 
-          :src="useAssetPath('/assets/Spotlight_Adventure_black.webp')"
+          :src="useAssetPath('/assets/Spotlight.webp')"
           alt="Spotlight"
-          class="w-32 h-32 object-contain"
+          class="spotlight-art w-32 h-32 object-contain"
         />
       </div>
 
@@ -20,7 +20,7 @@
           checked ? 'bg-black border-black' : 'bg-white ',
           index === 0 ? 'top-5 right-11' : index === 1 ? 'top-10 right-5.5' : 'top-16 right-3'
         ]"
-        @click="toggleSpotlight(index)"
+        role="button" tabindex="0" :aria-label="`矚目時刻 ${index + 1}`" :aria-pressed="checked" @keydown.enter.prevent="toggleSpotlight(index)" @keydown.space.prevent="toggleSpotlight(index)" @click="toggleSpotlight(index)"
       />
     </div>
 
@@ -31,7 +31,7 @@
         <div 
           class="text-center font-bold text-lg text-amber-900 tracking-wider cursor-help relative"
         >
-          幸運!
+          腎上腺素
         </div>
         
         <!-- 6 Dice Checkboxes -->
@@ -39,17 +39,17 @@
           <img 
             v-for="(checked, index) in luckCheckboxes" 
             :key="index"
-            :src="useAssetPath(checked ? '/assets/AdrenalinaCheck_black_checked.webp' : '/assets/AdrenalinaCheck_black.webp')"
-            :alt="`Luck ${index + 1}`"
+            :src="useAssetPath(checked ? '/assets/AdrenalinaCheck_checked.webp' : '/assets/AdrenalinaCheck.webp')"
+            :alt="`腎上腺素 ${index + 1}`"
             class="w-6 h-10 cursor-pointer hover:opacity-80 transition-opacity"
-            @click="toggleLuck(index)"
+            role="button" tabindex="0" :aria-pressed="checked" @keydown.enter.prevent="toggleLuck(index)" @keydown.space.prevent="toggleLuck(index)" @click="toggleLuck(index)"
           />
         </div>
 
         <!-- Info Text -->
         <div class="text-left text-xs text-amber-900 space-y-1">
-          <div>♦ 花 1 點幸運，行動或反應獲得 +1</div>
-          <div>♦ 花 6 點幸運，獲得一次矚目時刻</div>
+          <div>⚡ GAIN +1</div>
+          <div>⚡ 6 點將獲得 1 個 SPOTLIGHT</div>
         </div>
       </div>
     </div>

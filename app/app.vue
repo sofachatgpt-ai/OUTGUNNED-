@@ -2,10 +2,12 @@
 import { onMounted } from 'vue'
 import { useCharacterStore } from '~/stores/character'
 
+const { useAssetPath } = await import('~/composables/useAssetPath')
+
 useHead({
-  title: '逆境破局系列',
+  title: 'OUTGUNNED 中文角色卡',
   link: [
-    { rel: 'icon', type: 'image/png', href: '/outgunned/assets/official/logo.png' }
+    { rel: 'icon', href: useAssetPath('/favicon.ico') }
   ]
 })
 

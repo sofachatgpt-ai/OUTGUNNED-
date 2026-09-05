@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-2 flex flex-col h-full">
+  <div class="feats-section space-y-2 flex flex-col h-full">
     <!-- FEATS Header -->
     <div class="bg-amber-900 text-white px-3 py-1 rounded font-bold tracking-wider text-sm">
       專長

@@ -117,20 +117,20 @@ export const useCharacterStore = defineStore('character', {
       brawn: {
         '忍耐': [true, false, false],
         '戰鬥': [true, false, false],
-        '蠻力': [true, false, false],
+        '力量': [true, false, false],
         '特技': [true, false, false]
       },
       nerves: {
         '冷靜': [true, false, false],
         '駕駛': [true, false, false],
         '射擊': [true, false, false],
-        '求生': [true, false, false]
+        '生存': [true, false, false]
       },
       smooth: {
         '調情': [true, false, false],
         '領導': [true, false, false],
-        '話術': [true, false, false],
-        '風範': [true, false, false]
+        '演講': [true, false, false],
+        '風格': [true, false, false]
       },
       focus: {
         '偵查': [true, false, false],
@@ -140,8 +140,8 @@ export const useCharacterStore = defineStore('character', {
       },
       crime: {
         '警覺': [true, false, false],
-        '巧手': [true, false, false],
-        '潛行': [true, false, false],
+        '靈活性': [true, false, false],
+        '隱蔽': [true, false, false],
         '街頭智慧': [true, false, false]
       }
     },
@@ -494,17 +494,27 @@ export const useCharacterStore = defineStore('character', {
         youLook2: conditions.youLook2 ?? false
       }
     },
-    
-    // 手動持久化方法
-    saveToLocalStorage() {
-      if (process.client) {
-        try {
-          const data = JSON.stringify(this.$state)
-          localStorage.setItem('outgunned-character', data)
-        } catch (error) {
-          console.error('Failed to save to localStorage:', error)
-        }
+
+    // 保留舊版角色資料，僅將顯示用的舊譯名鍵轉成角色卡用詞
+    normalizeAttributeItemStates(states: any) {
+      if (!states || typeof states !== 'object') return this.attributeItemStates
+      const normalized = structuredClone(states)
+      const aliases = {
+        brawn: { '蠻力': '力量' },
+        nerves: { '求生': '生存' },
+        smooth: { '話術': '演講', '風範': '風格' },
+        crime: { '巧手': '靈活性', '潛行': '隱蔽' }
       }
+      Object.entries(aliases).forEach(([group, names]) => {
+        normalized[group] ||= {}
+        Object.entries(names).forEach(([oldName, newName]) => {
+          if (normalized[group][oldName] && !normalized[group][newName]) {
+            normalized[group][newName] = normalized[group][oldName]
+          }
+          delete normalized[group][oldName]
+        })
+      })
+      return normalized
     },
     
     loadFromLocalStorage() {
@@ -513,6 +523,7 @@ export const useCharacterStore = defineStore('character', {
           const data = localStorage.getItem('outgunned-character')
           if (data) {
             const parsed = JSON.parse(data)
+            parsed.attributeItemStates = this.normalizeAttributeItemStates(parsed.attributeItemStates)
             this.$patch(parsed)
             // 檢查並補齊自訂狀態
             this.ensureCustomConditions()
@@ -835,20 +846,20 @@ export const useCharacterStore = defineStore('character', {
           brawn: {
             '忍耐': [true, false, false],
             '戰鬥': [true, false, false],
-            '蠻力': [true, false, false],
+            '力量': [true, false, false],
             '特技': [true, false, false]
           },
           nerves: {
             '冷靜': [true, false, false],
             '駕駛': [true, false, false],
             '射擊': [true, false, false],
-            '求生': [true, false, false]
+            '生存': [true, false, false]
           },
           smooth: {
             '調情': [true, false, false],
             '領導': [true, false, false],
-            '話術': [true, false, false],
-            '風範': [true, false, false]
+            '演講': [true, false, false],
+            '風格': [true, false, false]
           },
           focus: {
             '偵查': [true, false, false],
@@ -858,8 +869,8 @@ export const useCharacterStore = defineStore('character', {
           },
           crime: {
             '警覺': [true, false, false],
-            '巧手': [true, false, false],
-            '潛行': [true, false, false],
+            '靈活性': [true, false, false],
+            '隱蔽': [true, false, false],
             '街頭智慧': [true, false, false]
           }
         }
@@ -884,6 +895,7 @@ export const useCharacterStore = defineStore('character', {
         }
         // 導入數據並正規化
         this.$patch(data)
+        this.attributeItemStates = this.normalizeAttributeItemStates(data.attributeItemStates)
         if (data.conditions) {
           this.conditions = this.normalizeConditions(data.conditions)
         }

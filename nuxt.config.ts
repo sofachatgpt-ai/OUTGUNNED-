@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -13,12 +14,12 @@ export default defineNuxtConfig({
 
   // GitHub Pages 部署配置
   app: {
-    baseURL: '/outgunned/',
+    baseURL: existsSync('.openai/hosting.json') ? '/' : '/outgunned/',
     buildAssetsDir: '/_nuxt/',
     head: {
-      title: '逆境破局系列',
+      title: 'OUTGUNNED 中文角色卡',
       link: [
-        { rel: 'icon', type: 'image/png', href: '/outgunned/assets/official/logo.png' }
+        { rel: 'icon', href: (existsSync('.openai/hosting.json') ? '/' : '/outgunned/') + 'favicon.ico' }
       ]
     }
   },

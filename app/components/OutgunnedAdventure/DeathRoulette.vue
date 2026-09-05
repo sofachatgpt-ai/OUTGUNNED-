@@ -4,8 +4,8 @@
     <div class="relative w-56 h-56">
       <!-- Background Image -->
       <img 
-        :src="useAssetPath('/assets/Ruleta_muerte_black.webp')"
-        alt="Death Roulette"
+        :src="useAssetPath('/assets/Ruleta_muerte.webp')"
+        alt="死亡輪盤"
         class="absolute inset-0 w-full h-full object-contain pointer-events-none"
       />
       

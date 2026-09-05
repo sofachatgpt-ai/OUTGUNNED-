@@ -1,14 +1,18 @@
 <template>
-  <div class="space-y-2">
+  <div class="equipment-section space-y-2">
     <!-- Title -->
     <div class="bg-amber-900 text-white px-3 py-2 rounded font-bold tracking-widest text-sm text-center">
-      槍枝與裝備
+      槍枝＆載具
     </div>
 
     <!-- Main Content Area -->
     <div class="border-2 border-amber-900 rounded bg-white">
+      <div class="weapon-range-row" aria-hidden="true">
+        <span>近戰</span><span>近距離</span><span>中距離</span><span>遠距離</span>
+      </div>
+
       <!-- Top Row: Equipment + Ammo Grid -->
-      <div class="flex gap-3 p-3">
+      <div class="flex gap-3 p-3 weapon-list">
         <!-- Left: Equipment Input Fields (6 items) -->
         <div class="flex-1 space-y-2 pr-3">
           <!-- Items 1-3 with ammo -->
@@ -27,7 +31,7 @@
               class="w-6 h-8 rounded flex items-center justify-center cursor-pointer transition-transform hover:scale-110 active:scale-95"
             >
               <img
-                :src="useAssetPath(characterStore.ammo[`item${i}`] >= ammoCount ? '/assets/Cargador_checked_black.webp' : '/assets/Cargador_black.webp')"
+                :src="useAssetPath(characterStore.ammo[`item${i}`] >= ammoCount ? '/assets/Cargador_checked.webp' : '/assets/Cargador.webp')"
                 :alt="`${characterStore.equipment[`item${i}`] || `裝備${i}`} 彈藥 ${ammoCount}`"
                 class="w-full h-full object-contain"
               />
@@ -54,8 +58,8 @@
       <!-- Bottom Row: Additional Equipment -->
       <div class="p-3 space-y-3">
         <!-- Cash -->
-        <div class="flex items-center justify-between gap-2 text-sm">
-          <span class="font-bold text-amber-900">現金</span>
+        <div class="cash-row">
+          <div class="cash-title"><span>現金</span><img :src="useAssetPath('/assets/cashpig.webp')" alt="" /></div>
           <div class="flex items-center gap-2">
             <button
               @click="toggleCoin(i)"
@@ -64,7 +68,7 @@
               class="w-6 h-6 cursor-pointer transition-transform hover:scale-110 active:scale-95"
             >
               <img
-                :src="useAssetPath(characterStore.coins >= i ? '/assets/goldcheck_checked.webp' : '/assets/goldcheck.webp')"
+                :src="useAssetPath(characterStore.coins >= i ? '/assets/cashcheck_checked.webp' : '/assets/cashcheck.webp')"
                 :alt="`金幣 ${i}`"
                 class="w-full h-full object-contain"
               />
@@ -74,10 +78,10 @@
 
         <!-- Backpack & Bag Row -->
         <div class="grid grid-cols-2 gap-2">
-          <!-- Backpack -->
+          <!-- Storage -->
           <div class="border-2 border-amber-900 rounded p-2">
             <div class="bg-amber-900 text-white px-2 py-1 rounded text-center text-xs font-bold mb-2">
-              背包
+              存儲
             </div>
             <div class="space-y-1">
               <input
@@ -92,10 +96,10 @@
             </div>
           </div>
 
-          <!-- Bag -->
+          <!-- Vehicle -->
           <div class="border-2 border-amber-900 rounded p-2">
             <div class="bg-amber-900 text-white px-2 py-1 rounded text-center text-xs font-bold mb-2">
-              提包
+              交通工具
             </div>
             <div class="space-y-1">
               <input
@@ -107,6 +111,13 @@
                 :placeholder="`行 ${i}`"
                 class="w-full border border-amber-200 rounded p-1 text-xs focus:outline-none focus:border-amber-900"
               />
+            </div>
+            <div class="vehicle-icons" aria-hidden="true">
+              <img :src="useAssetPath('/assets/Moto.webp')" alt="" />
+              <img :src="useAssetPath('/assets/Car.webp')" alt="" />
+              <img :src="useAssetPath('/assets/Boat.webp')" alt="" />
+              <img :src="useAssetPath('/assets/Heli.webp')" alt="" />
+              <img :src="useAssetPath('/assets/Tank.webp')" alt="" />
             </div>
           </div>
         </div>

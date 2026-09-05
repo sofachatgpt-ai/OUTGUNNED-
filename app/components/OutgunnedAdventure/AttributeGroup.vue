@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-2">
+  <div class="attribute-group space-y-2">
     <!-- Title Bar -->
     <div 
       class="bg-amber-900 text-white px-3 py-2 rounded flex items-center gap-2 font-bold tracking-wider text-sm relative cursor-help"

@@ -1,6 +1,6 @@
 <template>
   <button
-    @click="$emit('toggle')"
+    @click="$emit('toggle')" :aria-pressed="checked" aria-label="能力等級"
     class="relative w-6 h-6 flex items-center justify-center hover:opacity-80 transition"
   >
     <img

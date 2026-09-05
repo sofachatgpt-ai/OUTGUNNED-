@@ -1,103 +1,87 @@
 <template>
-  <div class="grid grid-cols-3 gap-3 bg-amber-50/90 p-3 rounded border-4 border-amber-900">
-    <!-- Left: Image Section -->
-    <div class="col-span-1 space-y-2 flex flex-col">
-      <div class="bg-gray-200 border-2 border-amber-900 rounded flex items-center justify-center overflow-hidden flex-1">
-        <img
-          v-if="characterStore.imageUrl"
-          :src="characterStore.imageUrl"
-          alt="Character"
-          class="w-full h-full object-cover"
-        />
-        <div v-else class="text-gray-400 text-center text-xs">No Image</div>
+  <div class="character-details">
+    <div class="portrait-block">
+      <div class="portrait-frame" :class="{ 'has-portrait': characterStore.imageUrl }" :style="portraitFrameStyle">
+        <button class="portrait-photo" type="button" aria-label="選擇角色肖像" @click="triggerPortraitUpload">
+          <img v-if="characterStore.imageUrl" :src="characterStore.imageUrl" alt="角色肖像" @error="handlePortraitError" />
+          <span v-else>點一下加入角色肖像</span>
+        </button>
+        <span class="portrait-logo">OUT<span>GUNNED</span></span>
       </div>
-      <input
-        v-model="characterStore.imageUrl"
-        type="text"
-        placeholder="Image URL"
-        class="w-full px-2 py-1 text-xs border-2 border-amber-900 rounded bg-white"
-      />
+      <input ref="portraitInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" class="sr-only" @change="loadPortrait" />
+      <div class="portrait-actions">
+        <button type="button" @click="triggerPortraitUpload">{{ characterStore.imageUrl ? '更換肖像' : '上傳肖像' }}</button>
+        <button v-if="characterStore.imageUrl" type="button" class="portrait-remove" @click="removePortrait">移除</button>
+      </div>
+      <p v-if="portraitError" class="portrait-error" role="alert">{{ portraitError }}</p>
     </div>
-
-    <!-- Right: Details Section -->
-    <div class="col-span-2 space-y-2">
-      <!-- NAME -->
-      <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
-        <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">名字</label>
-        <input
-          v-model="characterStore.characterDetails.name"
-          type="text"
-          class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
-        />
-      </div>
-
-      <!-- ROLE -->
-      <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
-        <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">角色定位</label>
-        <input
-          v-model="characterStore.characterDetails.role"
-          type="text"
-          class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
-        />
-      </div>
-
-      <!-- TROPE -->
-      <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
-        <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">原型套路</label>
-        <input
-          v-model="characterStore.characterDetails.trope"
-          type="text"
-          class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
-        />
-      </div>
-
-      <!-- BACKGROUND + AGE -->
-      <div class="grid grid-cols-3 gap-2">
-        <div class="col-span-2 flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
-          <label class="font-bold text-amber-900 text-xs whitespace-nowrap">背景</label>
-          <input
-            v-model="characterStore.characterDetails.background"
-            type="text"
-            class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
-          />
-        </div>
-        <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
-          <label class="font-bold text-amber-900 text-xs whitespace-nowrap">年齡</label>
-          <input
-            v-model="characterStore.characterDetails.age"
-            type="text"
-            class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
-          />
-        </div>
-      </div>
-      <!-- CATCHPHRASE -->
-      <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
-        <label class="font-bold text-amber-900 text-xs whitespace-nowrap">口頭禪</label>
-        <input
-          v-model="characterStore.characterDetails.catchphrase"
-          type="text"
-          class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
-        />
-      </div>
-
-      <!-- FLAW -->
-      <div class="flex items-center gap-2 bg-white px-2 py-1 rounded border border-amber-900">
-        <label class="font-bold text-amber-900 text-xs whitespace-nowrap w-16">缺陷</label>
-        <input
-          v-model="characterStore.characterDetails.flaw"
-          type="text"
-          class="flex-1 bg-transparent border-none outline-none text-xs text-amber-900"
-        />
-      </div>
+    <div class="detail-lines">
+      <label>角色名稱<input v-model="characterStore.characterDetails.name" type="text" /></label>
+      <label>角色<input v-model="characterStore.characterDetails.role" type="text" /></label>
+      <label>套路<input v-model="characterStore.characterDetails.trope" type="text" /></label>
+      <div class="background-age"><label>工作<input v-model="characterStore.characterDetails.background" type="text" /></label><label>年齡<input v-model="characterStore.characterDetails.age" type="text" /></label></div>
+      <label>缺陷<input v-model="characterStore.characterDetails.flaw" type="text" /></label>
+      <label>口頭禪<input v-model="characterStore.characterDetails.catchphrase" type="text" /></label>
     </div>
   </div>
 </template>
-
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useCharacterStore } from '~/stores/character'
-
+import { useAssetPath } from '~/composables/useAssetPath'
 const characterStore = useCharacterStore()
-</script>
+const portraitInput = ref<HTMLInputElement | null>(null)
+const portraitError = ref('')
+const portraitFrameStyle = { backgroundImage: `url(${useAssetPath('/assets/Fondofoto.webp')})` }
 
-<style scoped>
-</style>
+const triggerPortraitUpload = () => portraitInput.value?.click()
+
+const loadPortrait = (event: Event) => {
+  const input = event.target as HTMLInputElement
+  const file = input.files?.[0]
+  if (!file) return
+  portraitError.value = ''
+
+  if (!file.type.startsWith('image/')) {
+    portraitError.value = '請選擇圖片檔案。'
+    input.value = ''
+    return
+  }
+
+  const reader = new FileReader()
+  reader.onerror = () => { portraitError.value = '無法讀取這張圖片，請換一個檔案再試。' }
+  reader.onload = () => {
+    const image = new Image()
+    image.onerror = () => { portraitError.value = '圖片格式無法顯示，請改用 JPG、PNG 或 WebP。' }
+    image.onload = () => {
+      const maxWidth = 1200
+      const maxHeight = 1400
+      const scale = Math.min(1, maxWidth / image.naturalWidth, maxHeight / image.naturalHeight)
+      const canvas = document.createElement('canvas')
+      canvas.width = Math.max(1, Math.round(image.naturalWidth * scale))
+      canvas.height = Math.max(1, Math.round(image.naturalHeight * scale))
+      const context = canvas.getContext('2d')
+      if (!context) {
+        portraitError.value = '瀏覽器無法處理這張圖片。'
+        return
+      }
+      context.drawImage(image, 0, 0, canvas.width, canvas.height)
+      characterStore.imageUrl = canvas.toDataURL('image/jpeg', 0.86)
+      characterStore.saveToLocalStorage()
+    }
+    image.src = reader.result as string
+  }
+  reader.readAsDataURL(file)
+  input.value = ''
+}
+
+const removePortrait = () => {
+  characterStore.imageUrl = ''
+  portraitError.value = ''
+  characterStore.saveToLocalStorage()
+}
+
+const handlePortraitError = () => {
+  portraitError.value = '這張肖像目前無法顯示，請重新上傳。'
+}
+</script>
