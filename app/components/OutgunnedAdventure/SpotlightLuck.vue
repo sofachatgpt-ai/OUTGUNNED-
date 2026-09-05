@@ -31,7 +31,7 @@
         <div 
           class="text-center font-bold text-lg text-amber-900 tracking-wider cursor-help relative"
         >
-          幸運!
+          腎上腺素
         </div>
         
         <!-- 6 Dice Checkboxes -->
@@ -48,8 +48,8 @@
 
         <!-- Info Text -->
         <div class="text-left text-xs text-amber-900 space-y-1">
-          <div>♦ 花 1 點幸運，行動或反應獲得 +1</div>
-          <div>♦ 花 6 點幸運，獲得一次矚目時刻</div>
+          <div>⚡ GAIN +1</div>
+          <div>⚡ 6 點將獲得 1 個 SPOTLIGHT</div>
         </div>
       </div>
     </div>
