@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-2">
+  <div class="experiences-section space-y-2">
     <!-- Treasure -->
     <div class="flex items-center gap-2 text-xs">
       <span class="font-bold text-amber-900 tracking-wider">寶藏</span>
@@ -55,13 +55,13 @@
         @click="exportCharacter"
         class="flex-1 px-4 py-2 bg-blue-600 text-white rounded font-bold text-sm hover:bg-blue-700 transition-colors"
       >
-        📥 匯出角色
+        匯出角色
       </button>
       <button
         @click="triggerImport"
         class="flex-1 px-4 py-2 bg-green-600 text-white rounded font-bold text-sm hover:bg-green-700 transition-colors"
       >
-        📤 匯入角色
+        匯入角色
       </button>
       <input
         ref="fileInput"
@@ -77,7 +77,7 @@
       @click="showConfirmDialog = true"
       class="w-full mt-4 px-4 py-2 bg-amber-900 text-white rounded font-bold text-sm hover:bg-amber-800 transition-colors"
     >
-      🎬 開始新電影
+      開始新電影
     </button>
 
     <!-- Confirm Dialog -->
@@ -85,7 +85,7 @@
       <div class="bg-white rounded-lg shadow-2xl max-w-sm w-full border-2 border-amber-900">
         <!-- Header -->
         <div class="bg-amber-900 text-white px-6 py-4 rounded-t-[6px]">
-          <h2 class="text-lg font-bold">🎬 展開新電影</h2>
+          <h2 class="text-lg font-bold">展開新電影</h2>
         </div>
 
         <!-- Content -->

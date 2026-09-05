@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-3">
+  <div class="attributes-list space-y-3">
     <AttributeGroup
       v-for="attribute in attributeConfigs"
       :key="attribute.id"

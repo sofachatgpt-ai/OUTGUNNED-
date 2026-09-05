@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center gap-0">
+  <div class="spotlight-section flex flex-col items-center gap-0">
     <!-- Spotlight Icon with Selection Circles -->
     <div class="relative w-44 h-40 pt-3 flex justify-center items-center">
       <!-- Main Spotlight Circle -->
@@ -20,7 +20,7 @@
           checked ? 'bg-black border-black' : 'bg-white ',
           index === 0 ? 'top-5 right-11' : index === 1 ? 'top-10 right-5.5' : 'top-16 right-3'
         ]"
-        @click="toggleSpotlight(index)"
+        role="button" tabindex="0" :aria-label="`矚目時刻 ${index + 1}`" :aria-pressed="checked" @keydown.enter.prevent="toggleSpotlight(index)" @keydown.space.prevent="toggleSpotlight(index)" @click="toggleSpotlight(index)"
       />
     </div>
 
@@ -42,7 +42,7 @@
             :src="useAssetPath(checked ? '/assets/AdrenalinaCheck_black_checked.webp' : '/assets/AdrenalinaCheck_black.webp')"
             :alt="`Luck ${index + 1}`"
             class="w-6 h-10 cursor-pointer hover:opacity-80 transition-opacity"
-            @click="toggleLuck(index)"
+            role="button" tabindex="0" :aria-pressed="checked" @keydown.enter.prevent="toggleLuck(index)" @keydown.space.prevent="toggleLuck(index)" @click="toggleLuck(index)"
           />
         </div>
 

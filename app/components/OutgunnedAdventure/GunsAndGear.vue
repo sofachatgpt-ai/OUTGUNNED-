@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-2">
+  <div class="equipment-section space-y-2">
     <!-- Title -->
     <div class="bg-amber-900 text-white px-3 py-2 rounded font-bold tracking-widest text-sm text-center">
       槍枝與裝備

@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-2">
+  <div class="conditions-section space-y-2">
     <!-- Title -->
     <div class="bg-amber-900 text-white px-3 py-2 rounded font-bold tracking-wider text-sm text-center">
       你看起來……

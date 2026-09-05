@@ -1,52 +1,10 @@
 <template>
-  <div class="w-1/2 p-3 overflow-y-auto">
-    <div class="flex flex-col gap-3 h-full">
-      <!-- Top Row -->
-      <div class="flex gap-3">
-        <!-- Spotlight & Luck (Left) -->
-        <div class="flex-1">
-          <SpotlightLuck />
-        </div>
-
-        <!-- Experiences (Middle) -->
-        <div class="flex-1">
-          <Experiences />
-        </div>
-
-        <!-- Placeholder (Right) -->
-        <div class="w-18"></div>
-      </div>
-
-      <!-- Bottom Row -->
-      <div class="flex gap-3">
-        <!-- You Look (Left) -->
-        <div class="flex-1">
-          <YouLook />
-        </div>
-
-        <!-- Death Roulette (Right) -->
-        <div class="flex items-center justify-center">
-          <DeathRoulette />
-        </div>
-        
-        <!-- Placeholder (Right) -->
-        <div class="w-18"></div>
-      </div>
-
-      <!-- Guns & Gear Row --> <div class="flex gap-3">
-                <div class="flex-1">
-           <GunsAndGear />
-        </div>
-       
-
-
-        <!-- Placeholder (Right) -->
-        <div class="w-18"></div>
-      </div>
-    </div>
-  </div>
+  <section class="sheet-page page-right" aria-label="資源與裝備">
+    <div class="resources-layout"><SpotlightLuck /><Experiences /></div>
+    <div class="conditions-layout"><YouLook /><div class="roulette-block"><DeathRoulette /><h2>死亡輪盤</h2></div></div>
+    <GunsAndGear />
+  </section>
 </template>
-
 <script setup lang="ts">
 import SpotlightLuck from './SpotlightLuck.vue'
 import Experiences from './Experiences.vue'
@@ -54,6 +12,3 @@ import YouLook from './YouLook.vue'
 import DeathRoulette from './DeathRoulette.vue'
 import GunsAndGear from './GunsAndGear.vue'
 </script>
-
-<style scoped>
-</style>

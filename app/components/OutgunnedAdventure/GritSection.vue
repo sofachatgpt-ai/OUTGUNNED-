@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-2">
+  <div class="grit-section space-y-2">
     <!-- GRIT Header -->
     <div class="bg-amber-900 text-white px-3 py-1 rounded font-bold tracking-wider text-sm w-fit">
       毅力
